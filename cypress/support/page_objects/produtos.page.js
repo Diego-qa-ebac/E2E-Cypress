@@ -3,66 +3,65 @@ class ProdutosPage {
 
     
     visitarUrl() {
-        cy.visit('produtos')
+        cy.visit('minha-conta')
     }
 
-    buscarProduto1(nomeProduto1) {
+    buscarProduto1(adicionarProduto1) {
         cy.get('.products > .row')
-        .contains(nomeProduto1).click()
+        .contains(adicionarProduto1)
+        .click()
+        cy.get('.button-variable-item-XL').click()
+        cy.get('.button-variable-item-Black').click()
+        cy.get('.single_add_to_cart_button').click()
+    }
+
+    buscarProduto2(adicionarProduto2) {
+        cy.get('[type="text"]').eq(1).type(adicionarProduto2)
+        cy.get('.search > .tbay-search-form > .form-ajax-search > .form-group > .input-group > .button-group > .button-search').click()
         cy.wait(1000)
-        cy.get('.button-variable-item-XS').click()
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .value > .variable-items-wrapper > .variable-item').click()
-        cy.wait(1000)
+        cy.get('.button-variable-item-S').click()
+        cy.get('.button-variable-item-Red').click()
         cy.get('.input-text').clear().type(2)
         cy.get('.single_add_to_cart_button').click()
-        cy.wait(1000)
-        cy.get('.dropdown-toggle > .mini-cart-items').click()
-        cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .checkout').click()
-        
-    }
+        }   
 
-    buscarProduto2(nomeProduto2) {
-        cy.get('[name="s"]').eq(1).type(nomeProduto2)
-        cy.get('.button-search').eq(1).click()
+    buscarProduto3(adicionarProduto3) {
+        cy.get('[type="text"]').eq(1).type(adicionarProduto3)
+        cy.get('.search > .tbay-search-form > .form-ajax-search > .form-group > .input-group > .button-group > .button-search').click()
         cy.wait(1000)
-        cy.get('.button-variable-item-34').click()
-        cy.wait(1000)
-        cy.get(':nth-child(2) > .value > .variable-items-wrapper > .variable-item').click()
+        cy.get('.button-variable-item-33').click()
+        cy.get('.button-variable-item-Blue').click()
         cy.get('.input-text').clear().type(3)
         cy.get('.single_add_to_cart_button').click()
-        cy.get('.woocommerce-message > .button').click()
-        cy.get('.checkout-button').click()
-    }   
-
-    buscarProduto3(nomeProduto3) {
-        cy.visit(`produtos/${nomeProduto3}`)
-        cy.wait(1000)
-        cy.get('.button-variable-item-M').click()
-        cy.wait(1000)
-        cy.get('.button-variable-item-Purple').click()
-        cy.get('.input-text').clear().type(2)
-        cy.get('.single_add_to_cart_button').click()
-        cy.get('.woocommerce-message > .button').click()
-        cy.get('.checkout-button').click()
-        
     }
 
 
-    buscarProduto4(nomeProduto4) {
-    var urlFormatada = nomeProduto4.replace(/ /g, '-') 
-    cy.visit(`produtos/${urlFormatada}`)
+    buscarProduto4(adicionarProduto4) {
+    //cy.visit(`produtos/${adicionarProduto4}`)
+    const urlformatada = adicionarProduto4.replace(/ /g, '-')
+    cy.visit(`produtos/${urlformatada}`)
     cy.wait(1000)
-    cy.get('.button-variable-item-L').click()
-    cy.wait(1000)
-    cy.get('.button-variable-item-White').click()
-    cy.wait(1000)
-    cy.get('.input-text').clear().type(4)
-    cy.get('.single_add_to_cart_button').click()    
+    cy.get('.button-variable-item-M').click()
+    cy.get(':nth-child(2) > .value > .variable-items-wrapper > .variable-item').click()
+    cy.get('.input-text').clear().type(3)
+    cy.get('.single_add_to_cart_button').click()
+    }
+
+    checkout(nome, sobrenome){
     cy.get('.woocommerce-message > .button').click()
     cy.get('.checkout-button').click()
+    cy.get('#billing_first_name').clear().type("Diego")  
+    cy.get('#billing_last_name').clear().type("Portella")  
+    cy.get('#billing_country_field > .woocommerce-input-wrapper > .select2 > .selection > .select2-selection > .select2-selection__arrow > b').click()
+    .click()
+    cy.get('#billing_address_1').clear().type("Rua dos QAs")
+    cy.get('#billing_city').clear().type("Sâo Paulo")
+    cy.get('#billing_postcode').clear().type("12345678")    
+    cy.get('#billing_phone').clear().type("1112345678") 
+    cy.wait(1000)
+    cy.get('#terms').click()
+    cy.get('#place_order').click()   
     }
-
 }
 
 export default new ProdutosPage()
